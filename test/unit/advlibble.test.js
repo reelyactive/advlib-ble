@@ -12,6 +12,8 @@ const assert = require ('assert');
 const INPUT_DATA_INVALID_HEX_STRING = 'xyz';
 const INPUT_DATA_TOO_SHORT_BUFFER = Buffer.from('000f', 'hex');
 const INPUT_DATA_VALID_HEX_STRING = '4006ab8967452301';
+const INPUT_DATA_ADV_NONCONN_IND =
+                       'c219ab89674523011216aafe109f027265656c7961637469766507';
 const INPUT_DATA_ADV_DIRECT_IND = 'c10cab8967452301ffeeddccbbaa';
 const INPUT_DATA_SCAN_REQ = 'c30cab8967452301ffeeddccbbaa';
 const INPUT_DATA_CONNECT_IND = 'c50cab8967452301ffeeddccbbaa';
@@ -26,6 +28,14 @@ const EXPECTED_DATA_VALID_INPUT = {
     type: "ADV_IND",
     length: 6,
     advA: "0123456789ab"
+};
+const EXPECTED_DATA_ADV_NONCONN_IND = {
+    rxAdd: "random",
+    txAdd: "random",
+    type: "ADV_NONCONN_IND",
+    length: 25,
+    advA: "0123456789ab",
+    serviceData: [ { uuid: "feaa", data: "109f027265656c7961637469766507" } ]
 };
 const EXPECTED_DATA_ADV_DIRECT_IND = {
     rxAdd: "random",
@@ -83,6 +93,12 @@ describe('advlib-ble', function() {
   it('should handle a valid hex string as input', function() {
     assert.deepEqual(advlib.process(INPUT_DATA_VALID_HEX_STRING),
                      EXPECTED_DATA_VALID_INPUT);
+  });
+
+  // Test the process function with an ADV_NONCONN_IND packet
+  it('should handle an ADV_NONCONN_IND packet', function() {
+    assert.deepEqual(advlib.process(INPUT_DATA_ADV_NONCONN_IND),
+                     EXPECTED_DATA_ADV_NONCONN_IND);
   });
 
   // Test the process function with an ADV_DIRECT_IND packet
