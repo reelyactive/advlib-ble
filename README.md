@@ -10,6 +10,28 @@ Installation
     npm install advlib-ble
 
 
+Hello advlib-ble!
+-----------------
+
+```javascript
+const advlib = require('advlib-ble');
+
+let packet = 'c21d04acbe55daba16096164766c6962206279207265656c79416374697665';
+let processedPacket = advlib.process(packet);
+
+console.log(processedPacket);
+```
+
+Which should yield the following console output:
+
+    { rxAdd: "random",
+      txAdd: "random",
+      type: "ADV_NONCONN_IND",
+      length: 29,
+      advA: "bada55beac04",
+      name: "advlib by reelyActive" }
+
+
 License
 -------
 
