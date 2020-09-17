@@ -20,6 +20,7 @@ const INPUT_DATA_128BIT_UUIDS =
 const INPUT_DATA_SHORTENED_NAME = '07086164766c6962';
 const INPUT_DATA_COMPLETE_NAME = '16096164766c6962206279207265656c79416374697665';
 const INPUT_DATA_TX_POWER = '020af4';
+const INPUT_DATA_APPEARANCE = '03193412';
 const INPUT_DATA_16BIT_SERVICE = '1216aafe109f027265656c7961637469766507';
 const INPUT_DATA_32BIT_SERVICE = '092067452301aabbccdd';
 const INPUT_DATA_128BIT_SERVICE = '1221ffeeddccbbaa9988776655443322110069';
@@ -44,6 +45,7 @@ const EXPECTED_DATA_128BIT_UUIDS = {
 const EXPECTED_DATA_SHORTENED_NAME = { name: "advlib" };
 const EXPECTED_DATA_COMPLETE_NAME = { name: "advlib by reelyActive" };
 const EXPECTED_DATA_TX_POWER = { txPower: -12 };
+const EXPECTED_DATA_APPEARANCE = { appearance: 0x1234 };
 const EXPECTED_DATA_16BIT_SERVICE = {
     serviceData: [ { uuid: "feaa", data: "109f027265656c7961637469766507" } ]
 };
@@ -125,6 +127,12 @@ describe('advDataTypes', function() {
   it('should handle Tx Power', function() {
     assert.deepEqual(advDataTypes.process(INPUT_DATA_TX_POWER),
                      EXPECTED_DATA_TX_POWER);
+  });
+
+  // Test the process function with appearance
+  it('should handle appearance', function() {
+    assert.deepEqual(advDataTypes.process(INPUT_DATA_APPEARANCE),
+                     EXPECTED_DATA_APPEARANCE);
   });
 
   // Test the process function with 16-bit service data
