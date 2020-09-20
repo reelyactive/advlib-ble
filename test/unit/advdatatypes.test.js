@@ -24,8 +24,15 @@ const INPUT_DATA_APPEARANCE = '03193412';
 const INPUT_DATA_16BIT_SERVICE = '1216aafe109f027265656c7961637469766507';
 const INPUT_DATA_32BIT_SERVICE = '092067452301aabbccdd';
 const INPUT_DATA_128BIT_SERVICE = '1221ffeeddccbbaa9988776655443322110069';
+const INPUT_DATA_SERVICE_LIBRARIES = [
+    { processServiceData: function(uuid, data) { return { isLibrary: true } } }
+];
 const INPUT_DATA_URI = '1524172f2f7777772e626c7565746f6f74682e636f6d';
 const INPUT_DATA_MANUFACTURER_SPECIFIC = '0bff4c0009060202c0a8006a';
+const INPUT_DATA_MANUFACTURER_LIBRARIES = [
+    { processManufacturerSpecificData: function(companyCode, data) {
+                                                 return { isLibrary: true } } }
+];
 
 
 // Expected outputs for the scenario
@@ -55,9 +62,15 @@ const EXPECTED_DATA_32BIT_SERVICE = {
 const EXPECTED_DATA_128BIT_SERVICE = {
     serviceData: [ { uuid: "00112233445566778899aabbccddeeff", data: "69" } ]
 };
+const EXPECTED_DATA_SERVICE_LIBRARIES = {
+    isLibrary: true
+};
 const EXPECTED_DATA_URI = { uri: "https://www.bluetooth.com" };
 const EXPECTED_DATA_MANUFACTURER_SPECIFIC = {
     manufacturerSpecificData: [ { companyCode: 76, data: "09060202c0a8006a" } ]
+};
+const EXPECTED_DATA_MANUFACTURER_LIBRARIES = {
+    isLibrary: true
 };
 
 
@@ -153,6 +166,13 @@ describe('advDataTypes', function() {
                      EXPECTED_DATA_128BIT_SERVICE);
   });
 
+  // Test the process function with service data libraries
+  it('should handle service data from libraries', function() {
+    assert.deepEqual(advDataTypes.process(INPUT_DATA_16BIT_SERVICE, 0,
+                                          INPUT_DATA_SERVICE_LIBRARIES),
+                     EXPECTED_DATA_SERVICE_LIBRARIES);
+  });
+
   // Test the process function with URI
   it('should handle URI', function() {
     assert.deepEqual(advDataTypes.process(INPUT_DATA_URI), EXPECTED_DATA_URI);
@@ -162,6 +182,13 @@ describe('advDataTypes', function() {
   it('should handle manufacturer specific data', function() {
     assert.deepEqual(advDataTypes.process(INPUT_DATA_MANUFACTURER_SPECIFIC),
                      EXPECTED_DATA_MANUFACTURER_SPECIFIC);
+  });
+
+  // Test the process function with manufacturer specific data libraries
+  it('should handle manufacturer specific data from libraries', function() {
+    assert.deepEqual(advDataTypes.process(INPUT_DATA_MANUFACTURER_SPECIFIC, 0,
+                                          INPUT_DATA_MANUFACTURER_LIBRARIES),
+                     EXPECTED_DATA_MANUFACTURER_LIBRARIES);
   });
 
 });
