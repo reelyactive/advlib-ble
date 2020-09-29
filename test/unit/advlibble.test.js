@@ -18,6 +18,9 @@ const INPUT_DATA_ADV_DIRECT_IND = 'c10cab8967452301ffeeddccbbaa';
 const INPUT_DATA_SCAN_REQ = 'c30cab8967452301ffeeddccbbaa';
 const INPUT_DATA_CONNECT_IND = 'c50cab8967452301ffeeddccbbaa';
 const INPUT_DATA_ADV_EXT_IND = 'c706ab8967452301';
+const INPUT_DATA_OPTIONS_IGNORE_PROTOCOL_OVERHEAD = {
+    ignoreProtocolOverhead: true
+};
 
 
 // Expected outputs for the scenario
@@ -66,6 +69,9 @@ const EXPECTED_DATA_ADV_EXT_IND = {
     txAdd: "random",
     type: "ADV_EXT_IND",
     length: 6
+};
+const EXPECTED_DATA_NO_PROTOCOL_OVERHEAD = {
+    serviceData: [ { uuid: "feaa", data: "109f027265656c7961637469766507" } ]
 };
 
 
@@ -123,6 +129,13 @@ describe('advlib-ble', function() {
   it('should handle an ADV_EXT_IND packet', function() {
     assert.deepEqual(advlib.process(INPUT_DATA_ADV_EXT_IND),
                      EXPECTED_DATA_ADV_EXT_IND);
+  });
+
+  // Test the process function with no protocol overhead
+  it('should handle the ignore protocol overhead option', function() {
+    assert.deepEqual(advlib.process(INPUT_DATA_ADV_NONCONN_IND, null,
+                                  INPUT_DATA_OPTIONS_IGNORE_PROTOCOL_OVERHEAD),
+                     EXPECTED_DATA_NO_PROTOCOL_OVERHEAD);
   });
 
 });
