@@ -1,7 +1,14 @@
 advlib-ble
 ==========
 
-Wireless advertising packet decoding library for Bluetooth Low Energy.
+Wireless advertising packet decoding library for Bluetooth Low Energy.  __advlib-ble__ can be used standalone or, more commonly, as a processor module of the protocol-agnostic [advlib](https://github.com/reelyactive/advlib) library.
+
+__advlib-ble__ is a lightweight [Node.js package](https://www.npmjs.com/package/advlib-ble) that implements the Core Bluetooth Specification and can be extended with libraries to decode service data and manufacturer-specific data outside of this specification.
+
+| Library | Decodes |
+|:--------|:--------|
+| [advlib-ble-services](https://github.com/reelyactive/advlib-ble-services) | Service Data |
+| [advlib-ble-manufacturers](https://github.com/reelyactive/advlib-ble-manufacturers) | Manufacturer-Specific Data |
 
 
 Installation
@@ -16,8 +23,11 @@ Hello advlib-ble!
 ```javascript
 const advlib = require('advlib-ble');
 
+const LIBRARIES = [ require('advlib-ble-services'),
+                    require('advlib-ble-manufacturers') ];
+
 let packet = 'c21d04acbe55daba16096164766c6962206279207265656c79416374697665';
-let processedPacket = advlib.process(packet);
+let processedPacket = advlib.process(packet, LIBRARIES);
 
 console.log(processedPacket);
 ```
@@ -30,6 +40,28 @@ Which should yield the following console output:
       length: 29,
       advA: "bada55beac04",
       name: "advlib by reelyActive" }
+
+
+Options
+-------
+
+__advlib-ble__ supports the following options for its process function:
+
+| Property               | Default | Description                         | 
+|:-----------------------|:--------|:------------------------------------|
+| ignoreProtocolOverhead | false   | Ignore BLE-specific properties (txAdd, length, type, advA, etc.) |
+
+For example, to ignore the Bluetooth Low Energy protocol overhead:
+
+```javascript
+let packet = 'c21d04acbe55daba16096164766c6962206279207265656c79416374697665';
+let options = { ignoreProtocolOverhead: true };
+let processedPacket = advlib.process(packet, [], options);
+```
+
+Which should yield the following console output:
+
+    { name: "advlib by reelyActive" }
 
 
 License
