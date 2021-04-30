@@ -50,6 +50,7 @@ __advlib-ble__ supports the following options for its process function:
 | Property               | Default | Description                         | 
 |:-----------------------|:--------|:------------------------------------|
 | ignoreProtocolOverhead | false   | Ignore BLE-specific properties (txAdd, length, type, advA, etc.) |
+| indices                | []      | URI-lookup indices such as Sniffypedia |
 
 For example, to ignore the Bluetooth Low Energy protocol overhead:
 
@@ -63,13 +64,25 @@ Which should yield the following console output:
 
     { name: "advlib by reelyActive" }
 
+For example, to append implicit URIs using the Sniffypedia index:
+
+```javascript
+let packet = '401490a3a947507b02011a0aff4c0010050a10b4f1e2';
+let options = { indices: [ require('sniffypedia') ] };
+let processedPacket = advlib.process(packet, [], options);
+```
+
+Which should yield the following console output:
+
+    { uri: "https://sniffypedia.org/Organization/Apple_Inc/" }
+
 
 License
 -------
 
 MIT License
 
-Copyright (c) 2015-2020 [reelyActive](https://www.reelyactive.com)
+Copyright (c) 2015-2021 [reelyActive](https://www.reelyactive.com)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 

@@ -1,5 +1,5 @@
 /**
- * Copyright reelyActive 2015-2020
+ * Copyright reelyActive 2015-2021
  * We believe in an open Internet of Things
  */
 
@@ -33,6 +33,12 @@ const INPUT_DATA_MANUFACTURER_LIBRARIES = [
     { processManufacturerSpecificData: function(companyCode, data) {
                                                  return { isLibrary: true } } }
 ];
+const INPUT_DATA_OPTIONS_INDICES = {
+    indices: [
+        { lookup: function(id, options) {
+                   return 'https://sniffypedia.org/Organization/Apple_Inc/' } }
+    ]
+};
 
 
 // Expected outputs for the scenario
@@ -71,6 +77,10 @@ const EXPECTED_DATA_MANUFACTURER_SPECIFIC = {
 };
 const EXPECTED_DATA_MANUFACTURER_LIBRARIES = {
     isLibrary: true
+};
+const EXPECTED_DATA_MANUFACTURER_LIBRARIES_INDICES = {
+    isLibrary: true,
+    uri: 'https://sniffypedia.org/Organization/Apple_Inc/'
 };
 
 
@@ -189,6 +199,14 @@ describe('advDataTypes', function() {
     assert.deepEqual(advDataTypes.process(INPUT_DATA_MANUFACTURER_SPECIFIC, 0,
                                           INPUT_DATA_MANUFACTURER_LIBRARIES),
                      EXPECTED_DATA_MANUFACTURER_LIBRARIES);
+  });
+
+  // Test the process function with manufacturer specific data indices
+  it('should handle manufacturer specific data with indices', function() {
+    assert.deepEqual(advDataTypes.process(INPUT_DATA_MANUFACTURER_SPECIFIC, 0,
+                                          INPUT_DATA_MANUFACTURER_LIBRARIES,
+                                          INPUT_DATA_OPTIONS_INDICES),
+                     EXPECTED_DATA_MANUFACTURER_LIBRARIES_INDICES);
   });
 
 });
