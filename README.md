@@ -77,6 +77,20 @@ Which should yield the following console output:
     { uri: "https://sniffypedia.org/Organization/Apple_Inc/" }
 
 
+Contributing
+------------
+
+Discover [how to contribute](CONTRIBUTING.md) to this open source project which upholds a standard [code of conduct](CODE_OF_CONDUCT.md).
+
+
+Security
+--------
+
+Consult our [security policy](SECURITY.md) for best practices using this open source software and to report vulnerabilities.
+
+[![Known Vulnerabilities](https://snyk.io/test/github/reelyactive/advlib-ble/badge.svg)](https://snyk.io/test/github/reelyactive/advlib-ble)
+
+
 License
 -------
 
