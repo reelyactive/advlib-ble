@@ -30,7 +30,8 @@ const EXPECTED_DATA_VALID_INPUT = {
     txAdd: "random",
     type: "ADV_IND",
     length: 6,
-    advA: "0123456789ab"
+    advA: "0123456789ab",
+    uri: "https://sniffypedia.org/Product/Any_BLE-Device/"
 };
 const EXPECTED_DATA_ADV_NONCONN_IND = {
     rxAdd: "random",
@@ -38,7 +39,8 @@ const EXPECTED_DATA_ADV_NONCONN_IND = {
     type: "ADV_NONCONN_IND",
     length: 25,
     advA: "0123456789ab",
-    serviceData: [ { uuid: "feaa", data: "109f027265656c7961637469766507" } ]
+    serviceData: [ { uuid: "feaa", data: "109f027265656c7961637469766507" } ],
+    uri: "https://sniffypedia.org/Product/Any_BLE-Device/"
 };
 const EXPECTED_DATA_ADV_DIRECT_IND = {
     rxAdd: "random",
@@ -46,7 +48,8 @@ const EXPECTED_DATA_ADV_DIRECT_IND = {
     type: "ADV_DIRECT_IND",
     length: 12,
     advA: "0123456789ab",
-    targetA: "aabbccddeeff"
+    targetA: "aabbccddeeff",
+    uri: "https://sniffypedia.org/Product/Any_BLE-Device/"
 };
 const EXPECTED_DATA_SCAN_REQ = {
     rxAdd: "random",
@@ -54,7 +57,8 @@ const EXPECTED_DATA_SCAN_REQ = {
     type: "SCAN_REQ",
     length: 12,
     scanA: "0123456789ab",
-    advA: "aabbccddeeff"
+    advA: "aabbccddeeff",
+    uri: "https://sniffypedia.org/Product/Any_Curious-Device/"
 };
 const EXPECTED_DATA_CONNECT_IND = {
     rxAdd: "random",
@@ -62,16 +66,19 @@ const EXPECTED_DATA_CONNECT_IND = {
     type: "CONNECT_IND",
     length: 12,
     initA: "0123456789ab",
-    advA: "aabbccddeeff"
+    advA: "aabbccddeeff",
+    uri: "https://sniffypedia.org/Product/Any_BLE-Device/"
 };
 const EXPECTED_DATA_ADV_EXT_IND = {
     rxAdd: "random",
     txAdd: "random",
     type: "ADV_EXT_IND",
-    length: 6
+    length: 6,
+    uri: "https://sniffypedia.org/Product/Any_BLE-Device/"
 };
 const EXPECTED_DATA_NO_PROTOCOL_OVERHEAD = {
-    serviceData: [ { uuid: "feaa", data: "109f027265656c7961637469766507" } ]
+    serviceData: [ { uuid: "feaa", data: "109f027265656c7961637469766507" } ],
+    uri: "https://sniffypedia.org/Product/Any_BLE-Device/"
 };
 
 
