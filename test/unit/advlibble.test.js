@@ -1,5 +1,5 @@
 /**
- * Copyright reelyActive 2015-2020
+ * Copyright reelyActive 2015-2022
  * We believe in an open Internet of Things
  */
 
@@ -18,9 +18,11 @@ const INPUT_DATA_ADV_DIRECT_IND = 'c10cab8967452301ffeeddccbbaa';
 const INPUT_DATA_SCAN_REQ = 'c30cab8967452301ffeeddccbbaa';
 const INPUT_DATA_CONNECT_IND = 'c50cab8967452301ffeeddccbbaa';
 const INPUT_DATA_ADV_EXT_IND = 'c706ab8967452301';
+const INPUT_DATA_PAYLOAD_ONLY = INPUT_DATA_ADV_NONCONN_IND.substring(16);
 const INPUT_DATA_OPTIONS_IGNORE_PROTOCOL_OVERHEAD = {
     ignoreProtocolOverhead: true
 };
+const INPUT_DATA_OPTIONS_PAYLOAD_ONLY = { isPayloadOnly: true };
 
 
 // Expected outputs for the scenario
@@ -77,6 +79,10 @@ const EXPECTED_DATA_ADV_EXT_IND = {
     uri: "https://sniffypedia.org/Product/Any_BLE-Device/"
 };
 const EXPECTED_DATA_NO_PROTOCOL_OVERHEAD = {
+    serviceData: [ { uuid: "feaa", data: "109f027265656c7961637469766507" } ],
+    uri: "https://sniffypedia.org/Product/Any_BLE-Device/"
+};
+const EXPECTED_DATA_PAYLOAD_ONLY = {
     serviceData: [ { uuid: "feaa", data: "109f027265656c7961637469766507" } ],
     uri: "https://sniffypedia.org/Product/Any_BLE-Device/"
 };
@@ -143,6 +149,13 @@ describe('advlib-ble', function() {
     assert.deepEqual(advlib.process(INPUT_DATA_ADV_NONCONN_IND, null,
                                   INPUT_DATA_OPTIONS_IGNORE_PROTOCOL_OVERHEAD),
                      EXPECTED_DATA_NO_PROTOCOL_OVERHEAD);
+  });
+
+  // Test the process function with payload only
+  it('should handle the payload only option', function() {
+    assert.deepEqual(advlib.process(INPUT_DATA_PAYLOAD_ONLY, null,
+                                    INPUT_DATA_OPTIONS_PAYLOAD_ONLY),
+                     EXPECTED_DATA_PAYLOAD_ONLY);
   });
 
 });

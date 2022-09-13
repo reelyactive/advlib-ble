@@ -50,6 +50,7 @@ __advlib-ble__ supports the following options for its process function:
 | Property               | Default | Description                         | 
 |:-----------------------|:--------|:------------------------------------|
 | ignoreProtocolOverhead | false   | Ignore BLE-specific properties (txAdd, length, type, advA, etc.) |
+| isPayloadOnly          | false   | Interpret data as the optional PDU payload only (i.e. without header or advertiser address) |
 | indices                | []      | URI-lookup indices such as Sniffypedia |
 
 For example, to ignore the Bluetooth Low Energy protocol overhead:
@@ -61,6 +62,18 @@ let processedPacket = advlib.process(packet, [], options);
 ```
 
 Which should yield the following console output:
+
+    { name: "advlib by reelyActive" }
+
+If only the payload is available, the example above would be handled as follows:
+
+```javascript
+let payload = '16096164766c6962206279207265656c79416374697665';
+let options = { isPayloadOnly: true };
+let processedPayload = advlib.process(packet, [], options);
+```
+
+Which should again yield the following console output:
 
     { name: "advlib by reelyActive" }
 
