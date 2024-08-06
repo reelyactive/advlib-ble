@@ -3,12 +3,15 @@ advlib-ble
 
 Wireless advertising packet decoding library for Bluetooth Low Energy.  __advlib-ble__ can be used standalone or, more commonly, as a processor module of the protocol-agnostic [advlib](https://github.com/reelyactive/advlib) library.
 
+![Overview of advlib-ble](https://reelyactive.github.io/advlib-ble/images/overview.png)
+
 __advlib-ble__ is a lightweight [Node.js package](https://www.npmjs.com/package/advlib-ble) that implements the Core Bluetooth Specification and can be extended with libraries to decode service data and manufacturer-specific data outside of this specification.
 
 | Library | Decodes |
 |:--------|:--------|
 | [advlib-ble-services](https://github.com/reelyactive/advlib-ble-services) | Service Data |
 | [advlib-ble-manufacturers](https://github.com/reelyactive/advlib-ble-manufacturers) | Manufacturer-Specific Data |
+| [advlib-ble-gatt](https://github.com/reelyactive/advlib-ble-gatt) | GATT Protocol-Specific Data |
 
 
 Installation
@@ -24,7 +27,8 @@ Hello advlib-ble!
 const advlib = require('advlib-ble');
 
 const LIBRARIES = [ require('advlib-ble-services'),
-                    require('advlib-ble-manufacturers') ];
+                    require('advlib-ble-manufacturers'),
+                    require('advlib-ble-gatt' ];
 
 let packet = 'c21d04acbe55daba16096164766c6962206279207265656c79416374697665';
 let processedPacket = advlib.process(packet, LIBRARIES);
